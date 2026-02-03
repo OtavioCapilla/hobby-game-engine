@@ -1,5 +1,6 @@
 add_executable(demo
     src/main.cpp
+    src/GameSetup.cpp
 )
 
 target_link_libraries(demo
