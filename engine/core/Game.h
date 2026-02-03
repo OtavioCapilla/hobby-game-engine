@@ -13,6 +13,9 @@ public:
 
     void run();
 
+    Scene &getScene();
+    AssetManager &getAssets();
+
 private:
     void processInput();
     void update();
