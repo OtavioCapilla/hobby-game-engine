@@ -45,9 +45,9 @@ void GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &conf
         assets.getTexture(config.assetRoot + "player.png");
 
     GameObject player;
-    player.transform.position = {64.f, 64.f};
     player.collider.size = {64.f, 64.f};
     player.sprite = new Sprite(playerTex, {64.f, 64.f});
+    player.velocity = {100.f, 0.f};
 
     scene.addObject(player);
 }
