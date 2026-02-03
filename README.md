@@ -100,7 +100,7 @@ Install on common Linux distros:
    mkdir -p build
    cd build
    cmake ..
-   make -j
+   cmake --build .
    ```
 
 2. Run the demo (ensure the working directory is the repo root so assets resolve correctly):
