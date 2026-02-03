@@ -40,7 +40,7 @@ void RenderSystem::drawSprite(SDL_Renderer *renderer,
 {
     if (!sprite.texture || !sprite.texture->get())
     {
-        return; // segurança absoluta
+        return;
     }
 
     SDL_Rect dst = toScreenRect(

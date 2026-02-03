@@ -6,9 +6,6 @@
 
 #include <engine/systems/CollisionSystem.h>
 
-// =======================
-// CONSTRUTOR
-// =======================
 Tilemap::Tilemap(int size)
     : tileSize(size),
       width(0),
@@ -17,9 +14,6 @@ Tilemap::Tilemap(int size)
 {
 }
 
-// =======================
-// CSV LOADER INTERNO
-// =======================
 bool Tilemap::loadCSV(const std::string& path,
                       std::vector<int>& outTiles,
                       int& outWidth,
@@ -62,9 +56,6 @@ bool Tilemap::loadCSV(const std::string& path,
     return true;
 }
 
-// =======================
-// LOAD LAYER
-// =======================
 bool Tilemap::loadLayerFromCSV(const std::string& layerName,
                                const std::string& filePath)
 {
@@ -89,9 +80,6 @@ bool Tilemap::loadLayerFromCSV(const std::string& layerName,
     return true;
 }
 
-// =======================
-// GETTERS
-// =======================
 int Tilemap::getWidth() const { return width; }
 int Tilemap::getHeight() const { return height; }
 int Tilemap::getTileSize() const { return tileSize; }
@@ -111,9 +99,6 @@ Vector2 Tilemap::tileToWorld(int x, int y) const {
     return { (float)(x * tileSize), (float)(y * tileSize) };
 }
 
-// =======================
-// TILESET
-// =======================
 void Tilemap::setTileset(Tileset* ts) { tileset = ts; }
 const Tileset* Tilemap::getTileset() const { return tileset; }
 
@@ -121,9 +106,6 @@ const std::vector<std::string>& Tilemap::getLayerOrder() const {
     return layerOrder;
 }
 
-// =======================
-// COLISÃO (SÓ CAMADA "solid")
-// =======================
 void Tilemap::resolveCollisionsX(GameObject& obj) const
 {
     if (!layers.count("solid")) return;

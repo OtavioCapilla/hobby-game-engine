@@ -24,7 +24,6 @@ void Scene::update(float deltaTime)
 
     GameObject& player = objects[0];
 
-    // ===== X =====
     MovementSystem::moveX(
         player.transform,
         player.velocity.x,
@@ -33,7 +32,6 @@ void Scene::update(float deltaTime)
 
     tilemap.resolveCollisionsX(player);
 
-    // ===== Y =====
     MovementSystem::moveY(
         player.transform,
         player.velocity.y,

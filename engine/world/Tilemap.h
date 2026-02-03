@@ -12,17 +12,14 @@ class Tilemap {
 public:
     explicit Tilemap(int tileSize);
 
-    // ===== camadas =====
     bool loadLayerFromCSV(const std::string& layerName,
                           const std::string& filePath);
 
     const std::vector<std::string>& getLayerOrder() const;
 
-    // ===== render =====
     int getTile(const std::string& layer,
                 int x, int y) const;
 
-    // ===== dimensões =====
     int getWidth() const;
     int getHeight() const;
     int getTileSize() const;
@@ -30,11 +27,9 @@ public:
 
     Vector2 tileToWorld(int x, int y) const;
 
-    // ===== tileset =====
     void setTileset(Tileset* tileset);
     const Tileset* getTileset() const;
 
-    // ===== colisão =====
     void resolveCollisionsX(GameObject& object) const;
     void resolveCollisionsY(GameObject& object) const;
 
