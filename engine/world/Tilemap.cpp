@@ -4,8 +4,6 @@
 #include <sstream>
 #include <iostream>
 
-#include <engine/systems/CollisionSystem.h>
-
 Tilemap::Tilemap(int size)
     : tileSize(size),
       width(0),
@@ -104,66 +102,4 @@ const Tileset* Tilemap::getTileset() const { return tileset; }
 
 const std::vector<std::string>& Tilemap::getLayerOrder() const {
     return layerOrder;
-}
-
-void Tilemap::resolveCollisionsX(GameObject& obj) const
-{
-    if (!layers.count("solid")) return;
-
-    int ts = tileSize;
-    float px = obj.transform.position.x;
-    float py = obj.transform.position.y;
-    float pw = obj.collider.size.x;
-    float ph = obj.collider.size.y;
-
-    int minX = (int)(px / ts);
-    int maxX = (int)((px + pw) / ts);
-    int minY = (int)(py / ts);
-    int maxY = (int)((py + ph) / ts);
-
-    const auto& tiles = layers.at("solid").tiles;
-
-    for (int y = minY; y <= maxY; ++y)
-        for (int x = minX; x <= maxX; ++x) {
-            if (!isInside(x, y)) continue;
-            if (tiles[y * width + x] == 0) continue;
-
-            GameObject tile;
-            tile.transform.position = tileToWorld(x, y);
-            tile.collider.size = { (float)ts, (float)ts };
-
-            if (CollisionSystem::checkAABB(obj, tile))
-                CollisionSystem::resolveX(obj, tile);
-        }
-}
-
-void Tilemap::resolveCollisionsY(GameObject& obj) const
-{
-    if (!layers.count("solid")) return;
-
-    int ts = tileSize;
-    float px = obj.transform.position.x;
-    float py = obj.transform.position.y;
-    float pw = obj.collider.size.x;
-    float ph = obj.collider.size.y;
-
-    int minX = (int)(px / ts);
-    int maxX = (int)((px + pw) / ts);
-    int minY = (int)(py / ts);
-    int maxY = (int)((py + ph) / ts);
-
-    const auto& tiles = layers.at("solid").tiles;
-
-    for (int y = minY; y <= maxY; ++y)
-        for (int x = minX; x <= maxX; ++x) {
-            if (!isInside(x, y)) continue;
-            if (tiles[y * width + x] == 0) continue;
-
-            GameObject tile;
-            tile.transform.position = tileToWorld(x, y);
-            tile.collider.size = { (float)ts, (float)ts };
-
-            if (CollisionSystem::checkAABB(obj, tile))
-                CollisionSystem::resolveY(obj, tile);
-        }
 }

@@ -30,9 +30,6 @@ public:
     void setTileset(Tileset* tileset);
     const Tileset* getTileset() const;
 
-    void resolveCollisionsX(GameObject& object) const;
-    void resolveCollisionsY(GameObject& object) const;
-
 private:
     struct Layer {
         std::vector<int> tiles;
