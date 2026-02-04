@@ -16,12 +16,17 @@ World &Scene::getWorld()
     return world;
 }
 
-void Scene::addObject(const GameObject &object)
+const World &Scene::getWorld() const
 {
-    objects.push_back(object);
+    return world;
 }
 
 Tilemap &Scene::getTilemap()
+{
+    return tilemap;
+}
+
+const Tilemap &Scene::getTilemap() const
 {
     return tilemap;
 }
@@ -36,7 +41,7 @@ void Scene::update(float deltaTime)
     CameraSystem::update(world, camera);
 }
 
-void Scene::render(SDL_Renderer *renderer)
+void Scene::render(SDL_Renderer *renderer, AssetManager &assets)
 {
     // Tilemaps
     RenderSystem::drawTilemap(renderer, tilemap, camera);
@@ -51,6 +56,7 @@ void Scene::render(SDL_Renderer *renderer)
 
         RenderSystem::drawSprite(
             renderer,
+            assets,
             transform,
             sprite,
             camera);
@@ -62,7 +68,14 @@ Camera2D &Scene::getCamera()
     return camera;
 }
 
-std::vector<GameObject> &Scene::getObjects()
+const Camera2D &Scene::getCamera() const
 {
-    return objects;
+    return camera;
+}
+
+void Scene::clear()
+{
+    world.clear();
+    tilemap.clear();
+    camera.reset();
 }
