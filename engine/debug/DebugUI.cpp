@@ -1,8 +1,8 @@
 #include "DebugUI.h"
 
-#include <engine/vendor/imgui/imgui.h>
-#include <engine/vendor/imgui/backends/imgui_impl_sdl2.h>
-#include <engine/vendor/imgui/backends/imgui_impl_sdlrenderer2.h>
+#include <imgui.h>
+#include <backends/imgui_impl_sdl2.h>
+#include <backends/imgui_impl_sdlrenderer2.h>
 
 static SDL_Renderer* s_renderer = nullptr;
 static bool s_initialized = false;
