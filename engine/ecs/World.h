@@ -53,7 +53,7 @@ public:
         return getStorage<T>().get(entity);
     }
 
-    // ===== STORAGES (EXPLÍCITOS) =====
+    // ===== STORAGES (EXPLICIT) =====
     ComponentStorage<Transform> transforms;
     ComponentStorage<Velocity> velocities;
     ComponentStorage<Sprite> sprites;
