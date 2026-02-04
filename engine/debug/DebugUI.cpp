@@ -10,7 +10,7 @@ static bool s_initialized = false;
 
 void DebugUI::init(SDL_Window *window, SDL_Renderer *renderer)
 {
-    if (!s_initialized)
+    if (s_initialized)
         return;
 
     IMGUI_CHECKVERSION();
@@ -74,4 +74,9 @@ void DebugUI::endFrame()
     ImGui_ImplSDLRenderer2_RenderDrawData(
         ImGui::GetDrawData(),
         s_renderer);
+}
+
+bool DebugUI::isInitialized()
+{
+    return s_initialized;
 }

@@ -12,4 +12,5 @@ public:
     static void beginFrame();
     static void draw(World &world);
     static void endFrame();
+    static bool isInitialized();
 };
