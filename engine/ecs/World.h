@@ -4,7 +4,6 @@
 #include <engine/ecs/EntityManager.h>
 #include <engine/ecs/ComponentStorage.h>
 
-// componentes
 #include <engine/ecs/components/Transform.h>
 #include <engine/ecs/components/Velocity.h>
 #include <engine/ecs/components/Sprite.h>
