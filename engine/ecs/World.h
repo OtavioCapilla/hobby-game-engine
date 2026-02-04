@@ -33,6 +33,23 @@ public:
         inputIntents.remove(id);
     }
 
+    void clear()
+    {
+        entities.clear();
+        transforms.clear();
+        velocities.clear();
+        sprites.clear();
+        colliders.clear();
+        cameraTargets.clear();
+        cameraOffsets.clear();
+        inputIntents.clear();
+    }
+
+    void destroyAllEntities()
+    {
+        clear();
+    }
+
     // ===== COMPONENT API =====
     template <typename T>
     void add(EntityID entity, const T &component)
@@ -48,6 +65,12 @@ public:
 
     template <typename T>
     T &get(EntityID entity)
+    {
+        return getStorage<T>().get(entity);
+    }
+
+    template <typename T>
+    const T &get(EntityID entity) const
     {
         return getStorage<T>().get(entity);
     }
