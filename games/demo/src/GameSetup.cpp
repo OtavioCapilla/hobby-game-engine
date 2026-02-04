@@ -62,5 +62,17 @@ EntityID GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &
     world.add<CameraOffset>(player, CameraOffset{{15.f, 32.f}});
     world.add<InputIntent>(player, InputIntent{});
 
+    // Enemy object
+    EntityID enemy = world.createEntity();
+
+    world.transforms.add(enemy, Transform{{100.f, 100.f}});
+    world.velocities.add(enemy, Velocity{{0.f, 0.f}});
+    world.colliders.add(enemy, Collider{{64.f, 64.f}});
+
+    Texture *enemyTex =
+        assets.getTexture(config.assetRoot + "player.png");
+
+    world.sprites.add(enemy, Sprite{enemyTex, {64.f, 64.f}});
+
     return player;
 }

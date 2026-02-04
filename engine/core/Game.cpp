@@ -9,6 +9,8 @@
 #include <iostream>
 #include <engine/input/Input.h>
 
+#include <engine/debug/DebugUI.h>
+
 Texture *playerTexture = nullptr;
 
 Game::Game(const GameConfig &cfg)
@@ -19,6 +21,7 @@ Game::Game(const GameConfig &cfg)
       assets(renderer.getSDLRenderer()),
       scene()
 {
+    DebugUI::init(window.getSDLWindow(), renderer.getSDLRenderer());
 }
 
 void Game::run()
@@ -28,11 +31,14 @@ void Game::run()
     while (running && window.isOpen())
     {
         Time::update();
+        DebugUI::beginFrame();
 
         processInput();
         update();
         render();
     }
+
+    DebugUI::shutdown();
 }
 
 void Game::processInput()
@@ -60,6 +66,9 @@ void Game::render()
 {
     renderer.clear();
     scene.render(renderer.getSDLRenderer());
+
+    DebugUI::draw(scene.getWorld());
+    DebugUI::endFrame();
     renderer.present();
 }
 
