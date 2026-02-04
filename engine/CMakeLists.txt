@@ -26,6 +26,7 @@ add_library(engine
     ecs/EntityManager.cpp
 
     debug/DebugUI.cpp
+    debug/ECSInspector.cpp
 )
 
 target_include_directories(engine PUBLIC
