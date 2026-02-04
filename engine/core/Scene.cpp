@@ -42,17 +42,18 @@ void Scene::render(SDL_Renderer *renderer)
     RenderSystem::drawTilemap(renderer, tilemap, camera);
 
     // Sprites ECS
-    for (auto& [entity, sprite] : world.sprites) {
-        if (!world.transforms.has(entity)) continue;
+    for (auto &[entity, sprite] : world.sprites)
+    {
+        if (!world.transforms.has(entity))
+            continue;
 
-        const auto& transform = world.transforms.get(entity);
+        const auto &transform = world.transforms.get(entity);
 
         RenderSystem::drawSprite(
             renderer,
             transform,
             sprite,
-            camera
-        );
+            camera);
     }
 }
 
