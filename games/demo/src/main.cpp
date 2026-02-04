@@ -11,7 +11,8 @@ int main()
         (root / "games/demo/assets/").string();
 
     Game game(config);
-    GameSetup::setup(game.getScene(), game.getAssets(), config);
+    EntityID player = GameSetup::setup(game.getScene(), game.getAssets(), config);
+    game.setPlayer(player);
     game.run();
     return 0;
 }

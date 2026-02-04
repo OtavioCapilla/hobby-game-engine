@@ -3,11 +3,17 @@
 #include <engine/graphics/Tileset.h>
 #include <engine/core/GameObject.h>
 #include <engine/input/Input.h>
+#include <engine/ecs/World.h>
+#include <engine/ecs/components/CameraTarget.h>
+#include <engine/ecs/components/CameraOffset.h>
+#include <engine/ecs/components/InputIntent.h>
 
 #include <SDL2/SDL_scancode.h>
 
-void GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &config)
+EntityID GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &config)
 {
+    World &world = scene.getWorld();
+
     // Input bindings
     Input::bind("move_left", SDL_SCANCODE_A);
     Input::bind("move_left", SDL_SCANCODE_LEFT);
@@ -41,13 +47,20 @@ void GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &conf
         "decoration", config.assetRoot + "level_deco.csv");
 
     // Player object
+    EntityID player = world.createEntity();
+
+    world.transforms.add(player, Transform{{100.f, 100.f}});
+    world.velocities.add(player, Velocity{{0.f, 0.f}});
+    world.colliders.add(player, Collider{{64.f, 64.f}});
+
     Texture *playerTex =
         assets.getTexture(config.assetRoot + "player.png");
 
-    GameObject player;
-    player.collider.size = {64.f, 64.f};
-    player.sprite = new Sprite(playerTex, {64.f, 64.f});
-    player.velocity = {100.f, 0.f};
+    world.sprites.add(player, Sprite{playerTex, {64.f, 64.f}});
 
-    scene.addObject(player);
+    world.add<CameraTarget>(player, CameraTarget{});
+    world.add<CameraOffset>(player, CameraOffset{{15.f, 32.f}});
+    world.add<InputIntent>(player, InputIntent{});
+
+    return player;
 }
