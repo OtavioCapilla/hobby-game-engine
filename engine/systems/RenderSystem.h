@@ -2,10 +2,10 @@
 
 struct SDL_Renderer;
 
-#include <engine/core/Transform.h>
+#include <engine/ecs/components/Transform.h>
 #include <engine/core/Camera2D.h>
-#include <engine/graphics/Sprite.h>
-#include <engine/physics/Collider.h>
+#include <engine/ecs/components/Sprite.h>
+#include <engine/ecs/components/Collider.h>
 #include <engine/world/Tilemap.h>
 
 class RenderSystem
