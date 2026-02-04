@@ -53,17 +53,6 @@ void Game::processInput()
 
 void Game::update()
 {
-    auto& world = scene.getWorld();
-
-    if(player == INVALID_ENTITY)
-        return;
-
-    Vector2 dir = getMovementDirection().normalized();
-    float speed = 200.0f;
-
-    auto &vel = world.velocities.get(player);
-    vel.value = dir * speed;
-
     scene.update(Time::deltaTime());
 }
 
