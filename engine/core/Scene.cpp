@@ -3,9 +3,17 @@
 #include <engine/systems/MovementSystem.h>
 #include <engine/systems/RenderSystem.h>
 #include <engine/systems/CollisionSystem.h>
+#include <engine/systems/CameraSystem.h>
+#include <engine/systems/InputECSSystem.h>
+#include <engine/systems/PlayerControlSystem.h>
 
 Scene::Scene() : tilemap(32)
 {
+}
+
+World &Scene::getWorld()
+{
+    return world;
 }
 
 void Scene::addObject(const GameObject &object)
@@ -20,42 +28,31 @@ Tilemap &Scene::getTilemap()
 
 void Scene::update(float deltaTime)
 {
-    if (objects.empty()) return;
+    InputECSSystem::update(world);
+    PlayerControlSystem::update(world, 200.f);
 
-    GameObject& player = objects[0];
-
-    MovementSystem::moveX(
-        player.transform,
-        player.velocity.x,
-        deltaTime
-    );
-
-    tilemap.resolveCollisionsX(player);
-
-    MovementSystem::moveY(
-        player.transform,
-        player.velocity.y,
-        deltaTime
-    );
-
-    tilemap.resolveCollisionsY(player);
-
-    camera.setPosition(player.transform.position);
+    MovementSystem::update(world, deltaTime);
+    CollisionSystem::resolve(world, tilemap);
+    CameraSystem::update(world, camera);
 }
 
 void Scene::render(SDL_Renderer *renderer)
 {
+    // Tilemaps
     RenderSystem::drawTilemap(renderer, tilemap, camera);
-    for (const auto &obj : objects)
+
+    // Sprites ECS
+    for (auto &[entity, sprite] : world.sprites)
     {
-        if (obj.sprite)
-        {
-            RenderSystem::drawSprite(renderer, obj.transform, *obj.sprite, camera);
-        }
-        RenderSystem::drawCollider(
+        if (!world.transforms.has(entity))
+            continue;
+
+        const auto &transform = world.transforms.get(entity);
+
+        RenderSystem::drawSprite(
             renderer,
-            obj.transform,
-            obj.collider,
+            transform,
+            sprite,
             camera);
     }
 }

@@ -1,15 +1,14 @@
 #include "MovementSystem.h"
 
-void MovementSystem::moveX(Transform& transform,
-                           float velocityX,
-                           float deltaTime)
+void MovementSystem::update(World& world, float dt)
 {
-    transform.position.x += velocityX * deltaTime;
-}
+    for (auto& [entity, vel] : world.velocities) {
 
-void MovementSystem::moveY(Transform& transform,
-                           float velocityY,
-                           float deltaTime)
-{
-    transform.position.y += velocityY * deltaTime;
+        if (!world.transforms.has(entity))
+            continue;
+
+        auto& transform = world.transforms.get(entity);
+
+        transform.position += vel.value * dt;
+    }
 }

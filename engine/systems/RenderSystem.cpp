@@ -1,7 +1,7 @@
 #include "RenderSystem.h"
 
 #include <SDL2/SDL.h>
-#include <engine/physics/Collider.h>
+#include <engine/ecs/components/Collider.h>
 #include <engine/core/GameObject.h>
 
 static inline SDL_Rect toScreenRect(const Vector2 &worldPos,

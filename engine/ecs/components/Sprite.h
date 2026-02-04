@@ -7,6 +7,4 @@ struct Sprite
 {
     Texture *texture;
     Vector2 size;
-
-    Sprite(Texture *tex, Vector2 desiredSize) : texture(tex), size(desiredSize) {}
 };

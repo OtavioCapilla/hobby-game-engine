@@ -54,12 +54,6 @@ void Game::processInput()
 void Game::update()
 {
     scene.update(Time::deltaTime());
-
-    auto &player = scene.getObjects()[0];
-    Vector2 direction = getMovementDirection().normalized();
-    float speed = 200.0f;
-
-    player.velocity = direction * speed;
 }
 
 void Game::render()
@@ -96,4 +90,9 @@ Scene &Game::getScene()
 AssetManager &Game::getAssets()
 {
     return assets;
+}
+
+void Game::setPlayer(EntityID id)
+{
+    player = id;
 }
