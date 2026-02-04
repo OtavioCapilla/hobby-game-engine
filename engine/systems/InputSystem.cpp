@@ -1,12 +1,14 @@
 #include "InputSystem.h"
 
 #include <SDL2/SDL.h>
+#include <engine/vendor/imgui/backends/imgui_impl_sdl2.h>
 
 bool InputSystem::s_quit = false;
 
 void InputSystem::update(){
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
+        ImGui_ImplSDL2_ProcessEvent(&event);
         if (event.type == SDL_QUIT) {
             s_quit = true;
         }

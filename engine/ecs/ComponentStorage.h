@@ -38,6 +38,11 @@ public:
     auto begin() const { return components.begin(); }
     auto end()   const { return components.end(); }
 
+    size_t size() const
+    {
+        return components.size();
+    }
+
 private:
     std::unordered_map<EntityID, T> components;
 };
