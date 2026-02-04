@@ -100,32 +100,32 @@ World::getStorage<CameraOffset>() { return cameraOffsets; }
 
 template <>
 inline ComponentStorage<InputIntent> &
-World::getStorage<InputIntent>(){ return inputIntents; }
+World::getStorage<InputIntent>() { return inputIntents; }
 
-template<>
-inline const ComponentStorage<Transform>&
+template <>
+inline const ComponentStorage<Transform> &
 World::getStorage<Transform>() const { return transforms; }
 
-template<>
-inline const ComponentStorage<Velocity>&
+template <>
+inline const ComponentStorage<Velocity> &
 World::getStorage<Velocity>() const { return velocities; }
 
-template<>
-inline const ComponentStorage<Sprite>&
+template <>
+inline const ComponentStorage<Sprite> &
 World::getStorage<Sprite>() const { return sprites; }
 
-template<>
-inline const ComponentStorage<Collider>&
+template <>
+inline const ComponentStorage<Collider> &
 World::getStorage<Collider>() const { return colliders; }
 
-template<>
-inline const ComponentStorage<CameraTarget>&
+template <>
+inline const ComponentStorage<CameraTarget> &
 World::getStorage<CameraTarget>() const { return cameraTargets; }
 
-template<>
-inline const ComponentStorage<CameraOffset>&
+template <>
+inline const ComponentStorage<CameraOffset> &
 World::getStorage<CameraOffset>() const { return cameraOffsets; }
 
-template<>
-inline const ComponentStorage<InputIntent>&
+template <>
+inline const ComponentStorage<InputIntent> &
 World::getStorage<InputIntent>() const { return inputIntents; }
