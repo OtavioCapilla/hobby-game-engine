@@ -6,39 +6,50 @@
 
 #include <engine/math/Vector2.h>
 #include <engine/graphics/Tileset.h>
-#include <engine/core/GameObject.h>
 
-class Tilemap {
+class Tilemap
+{
 public:
+    struct Layer
+    {
+        std::vector<int> tiles;
+    };
+
     explicit Tilemap(int tileSize);
 
-    bool loadLayerFromCSV(const std::string& layerName,
-                          const std::string& filePath);
+    bool loadLayerFromCSV(const std::string &layerName,
+                          const std::string &filePath);
 
-    const std::vector<std::string>& getLayerOrder() const;
+    const std::vector<std::string> &getLayerOrder() const;
 
-    int getTile(const std::string& layer,
+    int getTile(const std::string &layer,
                 int x, int y) const;
 
     int getWidth() const;
     int getHeight() const;
     int getTileSize() const;
-    bool isInside(int x, int y) const;
 
+    const std::unordered_map<std::string, Layer> &getLayers() const;
+
+    bool isInside(int x, int y) const;
     Vector2 tileToWorld(int x, int y) const;
 
-    void setTileset(Tileset* tileset);
-    const Tileset* getTileset() const;
+    const Tileset *getTileset() const;
+
+    void clear();
+    void createLayer(const std::string &name);
+    void setTile(const std::string &layer,
+                 int x, int y, int value);
+
+    void setTileset(Tileset *tileset);
+
+    void resize(int newWidth, int newHeight);
 
 private:
-    struct Layer {
-        std::vector<int> tiles;
-    };
-
-    bool loadCSV(const std::string& path,
-                 std::vector<int>& outTiles,
-                 int& outWidth,
-                 int& outHeight);
+    bool loadCSV(const std::string &path,
+                 std::vector<int> &outTiles,
+                 int &outWidth,
+                 int &outHeight);
 
 private:
     int tileSize;
@@ -48,5 +59,5 @@ private:
     std::unordered_map<std::string, Layer> layers;
     std::vector<std::string> layerOrder;
 
-    Tileset* tileset;
+    Tileset *tileset = nullptr;
 };

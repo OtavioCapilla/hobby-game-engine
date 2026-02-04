@@ -1,7 +1,6 @@
 #include <engine/core/Game.h>
 #include <engine/core/Time.h>
 #include <engine/systems/InputSystem.h>
-#include <engine/graphics/Texture.h>
 #include <engine/math/Vector2.h>
 
 #include <SDL2/SDL_scancode.h>
@@ -10,6 +9,7 @@
 #include <engine/input/Input.h>
 
 #include <engine/debug/DebugUI.h>
+#include <backends/imgui_impl_sdl2.h>
 
 Texture *playerTexture = nullptr;
 
@@ -31,9 +31,11 @@ void Game::run()
     while (running && window.isOpen())
     {
         Time::update();
-        DebugUI::beginFrame();
 
+        DebugUI::beginFrame();
         processInput();
+
+
         update();
         render();
     }
@@ -43,7 +45,15 @@ void Game::run()
 
 void Game::processInput()
 {
-    InputSystem::update();
+    SDL_Event event;
+
+    while (InputSystem::pollEvent(event))
+    {
+        if (DebugUI::isInitialized())
+        {
+            ImGui_ImplSDL2_ProcessEvent(&event);
+        }
+    }
 
     if (InputSystem::quitRequested())
     {
@@ -65,10 +75,12 @@ void Game::update()
 void Game::render()
 {
     renderer.clear();
-    scene.render(renderer.getSDLRenderer());
+
+    scene.render(renderer.getSDLRenderer(), assets);
 
     DebugUI::draw(scene.getWorld());
     DebugUI::endFrame();
+
     renderer.present();
 }
 

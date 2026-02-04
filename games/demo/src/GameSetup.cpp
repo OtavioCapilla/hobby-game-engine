@@ -56,7 +56,11 @@ EntityID GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &
     Texture *playerTex =
         assets.getTexture(config.assetRoot + "player.png");
 
-    world.sprites.add(player, Sprite{playerTex, {64.f, 64.f}});
+    Sprite playerSprite;
+    playerSprite.texturePath = config.assetRoot + "player.png";
+    playerSprite.size = {64.f, 64.f};
+
+    world.sprites.add(player, playerSprite);
 
     world.add<CameraTarget>(player, CameraTarget{});
     world.add<CameraOffset>(player, CameraOffset{{15.f, 32.f}});
@@ -72,7 +76,11 @@ EntityID GameSetup::setup(Scene &scene, AssetManager &assets, const GameConfig &
     Texture *enemyTex =
         assets.getTexture(config.assetRoot + "player.png");
 
-    world.sprites.add(enemy, Sprite{enemyTex, {64.f, 64.f}});
+    Sprite enemySprite;
+    enemySprite.texturePath = config.assetRoot + "player.png";
+    enemySprite.size = {64.f, 64.f};
+
+    world.sprites.add(enemy, enemySprite);
 
     return player;
 }

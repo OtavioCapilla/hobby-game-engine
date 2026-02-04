@@ -1,10 +1,10 @@
 #pragma once
 
-#include <engine/graphics/Texture.h>
+#include <string>
 #include <engine/math/Vector2.h>
 
 struct Sprite
 {
-    Texture *texture;
+    std::string texturePath;
     Vector2 size;
 };

@@ -14,3 +14,8 @@ void EntityManager::destroy(EntityID id)
 {
     // No need to do anything for now
 }
+
+void EntityManager::clear()
+{
+    nextId = 1;
+}

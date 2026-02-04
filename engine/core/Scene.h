@@ -6,6 +6,7 @@
 #include <engine/core/Camera2D.h>
 #include <engine/world/Tilemap.h>
 #include <engine/ecs/World.h>
+#include <engine/graphics/AssetManager.h>
 
 struct SDL_Renderer;
 
@@ -15,19 +16,22 @@ public:
     Scene();
 
     void update(float deltaTime);
-    void render(SDL_Renderer *renderer);
+    void render(SDL_Renderer *renderer, AssetManager &assets);
 
-    void addObject(const GameObject &object);
+    // ===== GETTERS (CONST) =====
+    const Camera2D &getCamera() const;
+    const World &getWorld() const;
+    const Tilemap &getTilemap() const;
 
+    // ===== GETTERS (NON-CONST) =====
     Camera2D &getCamera();
-
     World &getWorld();
-
     Tilemap &getTilemap();
-    std::vector<GameObject> &getObjects();
+
+    // ===== Reset =====
+    void clear();
 
 private:
-    std::vector<GameObject> objects;
     Camera2D camera;
     Tilemap tilemap;
     World world;
