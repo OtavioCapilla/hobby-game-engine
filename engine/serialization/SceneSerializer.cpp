@@ -14,9 +14,6 @@ bool SceneSerializer::save(const Scene& scene,
     json root;
     json sceneJson;
 
-    // =====================
-    // CAMERA
-    // =====================
     const Camera2D& cam = scene.getCamera();
 
     sceneJson["camera"] = {
@@ -24,16 +21,10 @@ bool SceneSerializer::save(const Scene& scene,
         { "zoom", cam.getZoom() }
     };
 
-    // =====================
-    // TILEMAP
-    // =====================
     json tilemapJson;
     TilemapSerializer::save(scene.getTilemap(), tilemapJson);
     sceneJson["tilemap"] = tilemapJson;
 
-    // =====================
-    // ECS
-    // =====================
     json ecsJson;
     WorldSerializer::save(scene.getWorld(), ecsJson);
     sceneJson["ecs"] = ecsJson;
@@ -60,14 +51,8 @@ bool SceneSerializer::load(Scene& scene,
 
     const json& sceneJson = root["scene"];
 
-    // =====================
-    // RESET DA SCENE
-    // =====================
-    scene.clear();   // ⚠️ vamos definir esse método
+    scene.clear();
 
-    // =====================
-    // CAMERA
-    // =====================
     auto camJson = sceneJson["camera"];
     scene.getCamera().setPosition({
         camJson["position"][0],
@@ -75,17 +60,11 @@ bool SceneSerializer::load(Scene& scene,
     });
     scene.getCamera().setZoom(camJson["zoom"]);
 
-    // =====================
-    // TILEMAP
-    // =====================
     TilemapSerializer::load(
         scene.getTilemap(),
         sceneJson["tilemap"]
     );
 
-    // =====================
-    // ECS
-    // =====================
     WorldSerializer::load(
         scene.getWorld(),
         sceneJson["ecs"]
