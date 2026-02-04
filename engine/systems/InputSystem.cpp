@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 
 #include <SDL2/SDL.h>
-#include <engine/vendor/imgui/backends/imgui_impl_sdl2.h>
+#include <backends/imgui_impl_sdl2.h>
 
 bool InputSystem::s_quit = false;
 
