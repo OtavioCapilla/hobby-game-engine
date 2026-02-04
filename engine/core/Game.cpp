@@ -53,13 +53,18 @@ void Game::processInput()
 
 void Game::update()
 {
-    scene.update(Time::deltaTime());
+    auto& world = scene.getWorld();
 
-    auto &player = scene.getObjects()[0];
-    Vector2 direction = getMovementDirection().normalized();
+    if(player == INVALID_ENTITY)
+        return;
+
+    Vector2 dir = getMovementDirection().normalized();
     float speed = 200.0f;
 
-    player.velocity = direction * speed;
+    auto &vel = world.velocities.get(player);
+    vel.value = dir * speed;
+
+    scene.update(Time::deltaTime());
 }
 
 void Game::render()
@@ -96,4 +101,9 @@ Scene &Game::getScene()
 AssetManager &Game::getAssets()
 {
     return assets;
+}
+
+void Game::setPlayer(EntityID id)
+{
+    player = id;
 }
