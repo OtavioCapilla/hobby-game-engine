@@ -4,7 +4,7 @@
 
 void CameraSystem::update(World &world, Camera2D &camera)
 {
-    const Vector2 halfViewport{400.f, 300.f}; // 800x600 / 2
+    const Vector2 halfViewport{400.f, 300.f};
 
     for (auto& [entity, transform] : world.transforms) {
 

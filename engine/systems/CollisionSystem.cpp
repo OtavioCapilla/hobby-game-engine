@@ -45,7 +45,6 @@ void CollisionSystem::resolve(World& world,
                     if (checkAABB(pos, collider.size,
                                   tilePos, tileSize))
                     {
-                        // empurra para fora no X
                         if (pos.x < tilePos.x)
                             transform.position.x =
                                 tilePos.x - collider.size.x;

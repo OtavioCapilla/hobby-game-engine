@@ -12,6 +12,5 @@ EntityID EntityManager::create()
 
 void EntityManager::destroy(EntityID id)
 {
-    // In a more complete implementation, you might want to recycle IDs
-    // or manage a pool of free IDs. For now, this is a no-op.
+    // No need to do anything for now
 }
