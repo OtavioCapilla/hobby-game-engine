@@ -8,6 +8,9 @@ add_library(engine
     systems/MovementSystem.cpp
     systems/RenderSystem.cpp
     systems/CollisionSystem.cpp
+    systems/InputECSSystem.cpp
+    systems/PlayerControlSystem.cpp
+    systems/CameraSystem.cpp
 
     platform/Window.cpp
     platform/Renderer.cpp
@@ -19,6 +22,8 @@ add_library(engine
     world/Tilemap.cpp
 
     input/Input.cpp
+
+    ecs/EntityManager.cpp
 )
 
 target_include_directories(engine
