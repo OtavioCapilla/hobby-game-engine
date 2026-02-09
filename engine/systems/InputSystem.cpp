@@ -17,11 +17,6 @@ bool InputSystem::pollEvent(SDL_Event& event)
     return true;
 }
 
-void InputSystem::update()
-{
-
-}
-
 bool InputSystem::quitRequested()
 {
     return s_quit;
