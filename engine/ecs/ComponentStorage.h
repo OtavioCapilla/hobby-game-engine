@@ -32,6 +32,11 @@ public:
         components.erase(entity);
     }
 
+    void clear()
+    {
+        components.clear();
+    }
+
     auto begin() { return components.begin(); }
     auto end()   { return components.end(); }
 

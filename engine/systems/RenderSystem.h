@@ -7,6 +7,7 @@ struct SDL_Renderer;
 #include <engine/ecs/components/Sprite.h>
 #include <engine/ecs/components/Collider.h>
 #include <engine/world/Tilemap.h>
+#include <engine/graphics/AssetManager.h>
 
 class RenderSystem
 {
@@ -17,6 +18,7 @@ public:
                          const Camera2D &camera);
 
     static void drawSprite(SDL_Renderer *renderer,
+                           AssetManager &assets,
                            const Transform &transform,
                            const Sprite &sprite,
                            const Camera2D &camera);

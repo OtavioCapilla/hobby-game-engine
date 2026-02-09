@@ -27,11 +27,16 @@ add_library(engine
 
     debug/DebugUI.cpp
     debug/ECSInspector.cpp
+
+    serialization/WorldSerializer.cpp
+    serialization/TilemapSerializer.cpp
+    serialization/SceneSerializer.cpp
 )
 
 target_include_directories(engine PUBLIC
     ${CMAKE_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/engine/vendor/imgui
+    ${CMAKE_SOURCE_DIR}/engine/vendor/json
     ${CMAKE_SOURCE_DIR}/engine/vendor/imgui/backends
 )
 

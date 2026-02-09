@@ -10,6 +10,12 @@ public:
     void setPosition(const Vector2 &pos);
     const Vector2 &getPosition() const;
 
+    void setZoom(float zoom);
+    float getZoom() const;
+
+    void reset();
+
 private:
     Vector2 position;
+    float zoom;
 };

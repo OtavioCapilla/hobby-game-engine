@@ -10,6 +10,8 @@ public:
     EntityID create();
     void destroy(EntityID id);
 
+    void clear();
+
 private:
     EntityID nextId;
 };

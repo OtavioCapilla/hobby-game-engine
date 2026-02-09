@@ -34,12 +34,15 @@ void RenderSystem::drawRect(SDL_Renderer *renderer,
 }
 
 void RenderSystem::drawSprite(SDL_Renderer *renderer,
+                              AssetManager &assets,
                               const Transform &transform,
                               const Sprite &sprite,
                               const Camera2D &camera)
 {
-    if (!sprite.texture || !sprite.texture->get())
+    Texture *texture = assets.getTexture(sprite.texturePath);
+    if (!texture)
     {
+        SDL_Log("RenderSystem::drawSprite: failed to get texture for path '%s'", sprite.texturePath.c_str());
         return;
     }
 
@@ -50,7 +53,7 @@ void RenderSystem::drawSprite(SDL_Renderer *renderer,
 
     SDL_RenderCopy(
         renderer,
-        sprite.texture->get(),
+        texture->get(),
         nullptr,
         &dst);
 }

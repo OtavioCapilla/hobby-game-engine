@@ -1,11 +1,15 @@
 #pragma once
 
-class InputSystem {
-    public:
-        static void update();
-        static bool quitRequested();
-        static bool isKeyDown(int key);
+#include <SDL2/SDL.h>
 
-    private:
-        static bool s_quit;
+class InputSystem {
+public:
+    static bool quitRequested();
+
+    static bool isKeyDown(int scancode);
+
+    static bool pollEvent(SDL_Event& outEvent);
+
+private:
+    static bool s_quit;
 };
