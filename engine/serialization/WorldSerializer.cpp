@@ -27,50 +27,46 @@ static std::set<EntityID> collectEntities(const World &world)
     return entities;
 }
 
-void WorldSerializer::save(const World& world, json& out)
+void WorldSerializer::save(const World &world, json &out)
 {
     json entities;
 
-    for (const auto& [entity, transform] : world.transforms)
+    for (EntityID entity : collectEntities(world))
     {
         json e;
         e["id"] = entity;
 
         if (world.has<Transform>(entity))
         {
-            const auto& t = world.get<Transform>(entity);
+            const auto &t = world.get<Transform>(entity);
             e["transform"] = {
-                { "x", t.position.x },
-                { "y", t.position.y }
-            };
+                {"x", t.position.x},
+                {"y", t.position.y}};
         }
 
         if (world.has<Velocity>(entity))
         {
-            const auto& v = world.get<Velocity>(entity);
+            const auto &v = world.get<Velocity>(entity);
             e["velocity"] = {
-                { "x", v.value.x },
-                { "y", v.value.y }
-            };
+                {"x", v.value.x},
+                {"y", v.value.y}};
         }
 
         if (world.has<Sprite>(entity))
         {
-            const auto& s = world.get<Sprite>(entity);
+            const auto &s = world.get<Sprite>(entity);
             e["sprite"] = {
-                { "texture", s.texturePath },
-                { "w", s.size.x },
-                { "h", s.size.y }
-            };
+                {"texture", s.texturePath},
+                {"w", s.size.x},
+                {"h", s.size.y}};
         }
 
         if (world.has<Collider>(entity))
         {
-            const auto& c = world.get<Collider>(entity);
+            const auto &c = world.get<Collider>(entity);
             e["collider"] = {
-                { "w", c.size.x },
-                { "h", c.size.y }
-            };
+                {"w", c.size.x},
+                {"h", c.size.y}};
         }
 
         entities.push_back(e);
@@ -79,41 +75,33 @@ void WorldSerializer::save(const World& world, json& out)
     out["entities"] = entities;
 }
 
-void WorldSerializer::load(World& world, const json& in)
+void WorldSerializer::load(World &world, const json &in)
 {
     world.clear();
 
-    for (const auto& e : in["entities"])
+    for (const auto &e : in["entities"])
     {
         EntityID id = world.createEntity();
 
         if (e.contains("transform"))
         {
-            world.add<Transform>(id, {
-                { e["transform"]["x"], e["transform"]["y"] }
-            });
+            world.add<Transform>(id, {{e["transform"]["x"], e["transform"]["y"]}});
         }
 
         if (e.contains("velocity"))
         {
-            world.add<Velocity>(id, {
-                { e["velocity"]["x"], e["velocity"]["y"] }
-            });
+            world.add<Velocity>(id, {{e["velocity"]["x"], e["velocity"]["y"]}});
         }
 
         if (e.contains("sprite"))
         {
-            world.add<Sprite>(id, {
-                e["sprite"]["texture"],
-                { e["sprite"]["w"], e["sprite"]["h"] }
-            });
+            world.add<Sprite>(id, {e["sprite"]["texture"],
+                                   {e["sprite"]["w"], e["sprite"]["h"]}});
         }
 
         if (e.contains("collider"))
         {
-            world.add<Collider>(id, {
-                { e["collider"]["w"], e["collider"]["h"] }
-            });
+            world.add<Collider>(id, {{e["collider"]["w"], e["collider"]["h"]}});
         }
     }
 }

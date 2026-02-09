@@ -2,10 +2,14 @@
 
 #include <string>
 #include <engine/world/Tilemap.h>
+#include <engine/vendor/json/json.hpp>
 
 class TilemapSerializer
 {
 public:
-    static bool save(const Tilemap &tilemap, const std::string &path);
-    static bool load(Tilemap &tilemap, const std::string &path);
+    static void save(const Tilemap &tilemap,
+                     nlohmann::json &out);
+
+    static void load(Tilemap &tilemap,
+                     const nlohmann::json &in);
 };

@@ -5,30 +5,29 @@
 
 using json = nlohmann::json;
 
-bool TilemapSerializer::save(const Tilemap &tilemap,
-                             const std::string &path)
+void TilemapSerializer::save(const Tilemap &tilemap,
+                             nlohmann::json &out)
 {
-    json root;
+    out["tileSize"] = tilemap.getTileSize();
+    out["width"] = tilemap.getWidth();
+    out["height"] = tilemap.getHeight();
+    out["layerOrder"] = tilemap.getLayerOrder();
 
-    root["tileSize"] = tilemap.getTileSize();
-    root["width"] = tilemap.getWidth();
-    root["height"] = tilemap.getHeight();
-    root["layerOrder"] = tilemap.getLayerOrder();
+    nlohmann::json layersJson;
 
-    json layersJson;
-
-    for (const auto &[name, layer] : tilemap.getLayers())
+    for (const auto &name : tilemap.getLayerOrder())
     {
-        json layerJson;
+        const auto &layer = tilemap.getLayers().at(name);
+
+        nlohmann::json layerJson;
 
         for (int y = 0; y < tilemap.getHeight(); ++y)
         {
-            json row;
+            nlohmann::json row;
             for (int x = 0; x < tilemap.getWidth(); ++x)
             {
                 row.push_back(
-                    tilemap.getTile(name, x, y)
-                );
+                    tilemap.getTile(name, x, y));
             }
             layerJson.push_back(row);
         }
@@ -36,38 +35,24 @@ bool TilemapSerializer::save(const Tilemap &tilemap,
         layersJson[name] = layerJson;
     }
 
-    root["layers"] = layersJson;
-
-    std::ofstream file(path);
-    if (!file.is_open())
-        return false;
-
-    file << root.dump(4);
-    return true;
+    out["layers"] = layersJson;
 }
 
-bool TilemapSerializer::load(Tilemap &tilemap,
-                             const std::string &path)
+void TilemapSerializer::load(Tilemap &tilemap,
+                             const nlohmann::json &in)
 {
-    std::ifstream file(path);
-    if (!file.is_open())
-        return false;
-
-    json root;
-    file >> root;
-
     tilemap.clear();
 
-    int width = root["width"];
-    int height = root["height"];
+    int width = in["width"];
+    int height = in["height"];
 
     tilemap.resize(width, height);
 
-    for (const auto &layerName : root["layerOrder"])
+    for (const auto &layerName : in["layerOrder"])
     {
         tilemap.createLayer(layerName);
 
-        const auto &layerData = root["layers"][layerName];
+        const auto &layerData = in["layers"][layerName];
 
         for (int y = 0; y < height; ++y)
         {
@@ -77,13 +62,8 @@ bool TilemapSerializer::load(Tilemap &tilemap,
                     layerName,
                     x,
                     y,
-                    layerData[y][x]
-                );
+                    layerData[y][x]);
             }
         }
     }
-
-    return true;
 }
-
-

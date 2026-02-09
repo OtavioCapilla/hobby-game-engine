@@ -12,7 +12,7 @@ Window::Window()
             return;
         }
 
-        window = SDL_CreateWindow("My Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+        window = SDL_CreateWindow("Fox Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 
         if(!window){
             std::cerr << "SDL_CreateWindow failed: "

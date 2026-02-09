@@ -42,6 +42,7 @@ void RenderSystem::drawSprite(SDL_Renderer *renderer,
     Texture *texture = assets.getTexture(sprite.texturePath);
     if (!texture)
     {
+        SDL_Log("RenderSystem::drawSprite: failed to get texture for path '%s'", sprite.texturePath.c_str());
         return;
     }
 
